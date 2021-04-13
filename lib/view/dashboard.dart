@@ -13,9 +13,10 @@ class _DashBoardState extends State<DashBoard> {
   Widget build(BuildContext context) {
     return ListView(
       children: [
+        Divider(height: 40,),
         Wrap(
           spacing: 40, 
-          runSpacing: 50, // FIXME: wierd shit
+          runSpacing: 20, // FIXME: weird
           direction: Axis.horizontal,
           alignment: WrapAlignment.center,
           children: [
@@ -26,9 +27,9 @@ class _DashBoardState extends State<DashBoard> {
             DataNumFix(),
           ],
         ),
-        Divider(),
+        Divider(height: 40,),
         Wrap(
-          spacing: 40, 
+          spacing: 40,
           runSpacing: 5,
           direction: Axis.horizontal,
           alignment: WrapAlignment.center,
