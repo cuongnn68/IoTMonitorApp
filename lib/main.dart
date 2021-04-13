@@ -28,7 +28,9 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.teal,
         primaryColor: Color(0xffc93956),
         // primaryColor: Colors.blueAccent,
+        
       ),
+      
       // home: MyHomePage(title: 'Flutter Demo Home Page'),
       home: Home(),
     );

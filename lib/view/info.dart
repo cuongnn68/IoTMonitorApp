@@ -3,12 +3,13 @@ import 'package:flutter/cupertino.dart';
 class Info extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.center,
+    return ListView(
+      
       children: [
         Text(
           "App lam bang flutter + dart",
           style: TextStyle(fontSize: 20),
+          textAlign: TextAlign.center,
         ),
         Image.asset("images/flutter.jpeg"),
         Text(""),
@@ -16,6 +17,7 @@ class Info extends StatelessWidget {
         Text(
           "Server lam bang dotnet 5",
           style: TextStyle(fontSize: 20),
+          textAlign: TextAlign.center,
         ),
         Image.asset("images/dotnet-5.jpg"),
       ],
