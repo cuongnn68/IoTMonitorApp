@@ -33,12 +33,12 @@ class _NotificationsState extends State<Notifications> {
                   color: Colors.white,
                   boxShadow: [
                     BoxShadow( // TODO fix this shit
-                      color: Colors.grey.withOpacity(0.5),
-                      spreadRadius: 2,
+                      color: Colors.grey[300].withOpacity(1),
+                      spreadRadius: 1,
                       blurRadius: 3,
-                      offset: Offset(1, 3), // changes position of shadow
+                      offset: Offset(3, 4), // changes position of shadow
                     ),],
-                  border: Border.all(width: 1.2),
+                  border: Border.all(width: 0.3),
                   borderRadius: BorderRadius.all(Radius.circular(7)),
                 ),
                 padding: EdgeInsets.all(5),

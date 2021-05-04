@@ -30,9 +30,6 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        centerTitle: true,
-        backgroundColor: Colors.grey[50],
-        shadowColor: Colors.grey[50],
         title: _titles[_activedIndex],
       ),
       body: _wigets[_activedIndex],

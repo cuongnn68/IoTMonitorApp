@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:iot_app/view/dashboard.dart';
 import './my_wiget/online_image.dart';
 import 'home.dart';
+import 'globals.dart' as global;
 
 class MyHttpOverrides extends HttpOverrides {
   @override
@@ -15,6 +16,7 @@ class MyHttpOverrides extends HttpOverrides {
 
 void main() {
   HttpOverrides.global = new MyHttpOverrides();
+  // assert(global.url = "192.168.100.7:5001");
   runApp(MyApp());
 }
 
@@ -27,8 +29,13 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.teal,
         primaryColor: Color(0xff00BFA5),
+        appBarTheme: AppBarTheme(
+          centerTitle: true,
+          // backgroundColor: Colors.grey[50],
+          backgroundColor: Color(0xfffafafa),
+          shadowColor: Color(0xfffafafa),
+        ),
         // primaryColor: Colors.blueAccent,
-        
       ),
       home: Home(),
     );

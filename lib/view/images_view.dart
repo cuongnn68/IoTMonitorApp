@@ -13,13 +13,7 @@ class ImageView extends StatefulWidget {
 
 class _ImageViewState extends State<ImageView> {
   final _url = globals.url;
-
-  // Future<List<dynamic>> _jsonRes;
-
   List<String> _folderNames;
-  // List<Widget> _folderWiget;
-
-  // List<String> folderUrls;
 
   @override
   void initState() {
@@ -31,11 +25,13 @@ class _ImageViewState extends State<ImageView> {
   Widget build(BuildContext context) {
     return FutureBuilder(
       future: getFolders(),
-      builder: (BuildContext context, AsyncSnapshot snapshot) {
+      builder: (context, snapshot) {
         if (snapshot.hasData) {
           _folderNames = List<String>.from(snapshot.data);
           return ListView.separated(
               itemBuilder: (context, i) => ListTile(
+                contentPadding: EdgeInsets.fromLTRB(20, 10, 20, 0),
+                leading: Icon(Icons.folder_open_sharp),
                 title: Text(_folderNames[i]),
                 onTap: () => {
                   Navigator.of(context)
