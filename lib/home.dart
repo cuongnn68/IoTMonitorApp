@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:iot_app/view/dashboard.dart';
 import 'package:iot_app/view/images_view.dart';
 import 'package:iot_app/view/info.dart';
+import 'package:iot_app/view/notifications.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -14,18 +15,24 @@ class _HomeState extends State<Home> {
   var _wigets = <Widget>[
     DashBoard(),
     ImageView(),
+    // Text("alert view"),
+    Notifications(),
     Info(),
   ];
   var _titles = <Text>[
-    Text("bang dieu khien"),
-    Text("photo"),
-    Text("info"),
+    Text("Bang dieu khien"),
+    Text("Photo"),
+    Text("Canh bao"),
+    Text("Thong tin"),
   ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        centerTitle: true,
+        backgroundColor: Colors.grey[50],
+        shadowColor: Colors.grey[50],
         title: _titles[_activedIndex],
       ),
       body: _wigets[_activedIndex],
@@ -40,6 +47,10 @@ class _HomeState extends State<Home> {
             label: "Photo",
           ),
           BottomNavigationBarItem(
+            icon: Icon(Icons.notifications), 
+            label: "Alert",
+          ),
+          BottomNavigationBarItem(
             icon: Icon(Icons.info),
             label: "Info",
           ),
@@ -47,6 +58,9 @@ class _HomeState extends State<Home> {
         currentIndex: _activedIndex,
         selectedItemColor: Theme.of(context).primaryColor,
         onTap: _onTapNavigation,
+        unselectedItemColor: Colors.grey,
+        showUnselectedLabels: true,
+        
       ),
     );
   }

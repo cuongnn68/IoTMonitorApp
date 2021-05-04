@@ -26,7 +26,7 @@ class MyApp extends StatelessWidget {
       title: 'Flutter Demo',
       theme: ThemeData(
         primarySwatch: Colors.teal,
-        primaryColor: Color(0xffc93956),
+        primaryColor: Color(0xff00BFA5),
         // primaryColor: Colors.blueAccent,
         
       ),
