@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:iot_app/view/dashboard.dart';
+import 'package:iot_app/view/login.dart';
 import './my_wiget/online_image.dart';
 import 'home.dart';
 import 'globals.dart' as global;
@@ -37,7 +38,7 @@ class MyApp extends StatelessWidget {
         ),
         // primaryColor: Colors.blueAccent,
       ),
-      home: Home(),
+      home: LoginPage(),
     );
   }
 }

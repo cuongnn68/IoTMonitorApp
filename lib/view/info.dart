@@ -1,5 +1,7 @@
 import 'package:flutter/cupertino.dart';
 
+// TODO user info
+
 class Info extends StatelessWidget {
   @override
   Widget build(BuildContext context) {

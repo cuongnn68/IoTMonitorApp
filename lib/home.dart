@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:iot_app/view/dashboar2.dart';
 import 'package:iot_app/view/dashboard.dart';
 import 'package:iot_app/view/images_view.dart';
 import 'package:iot_app/view/info.dart';
@@ -13,7 +14,7 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   var _activedIndex = 0;
   var _wigets = <Widget>[
-    DashBoard(),
+    DashBoard2(),
     ImageView(),
     // Text("alert view"),
     Notifications(),
@@ -48,7 +49,7 @@ class _HomeState extends State<Home> {
             label: "Alert",
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.info),
+            icon: Icon(Icons.people_alt),
             label: "Info",
           ),
         ],
