@@ -38,6 +38,10 @@ class MyApp extends StatelessWidget {
         ),
         // primaryColor: Colors.blueAccent,
       ),
+      routes: { // ??? what is {} return 
+        "/login": (context) => LoginPage(),
+        "/home": (context) => Home(),
+      },
       home: LoginPage(),
     );
   }
