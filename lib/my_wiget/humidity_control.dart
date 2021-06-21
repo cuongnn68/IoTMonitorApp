@@ -4,69 +4,46 @@ import 'package:syncfusion_flutter_charts/charts.dart';
 
 import 'container_wrapper.dart';
 
-class TemperatureControl extends StatefulWidget {
+class HumidityControl extends StatefulWidget {
   @override
-  _TemperatureControlState createState() => _TemperatureControlState();
+  _HumidityControlState createState() => _HumidityControlState();
 }
 
-class _TemperatureControlState extends State<TemperatureControl> {
+class _HumidityControlState extends State<HumidityControl> {
   List<bool> _hourDayWeekOptions = [false, true, false];
-  List<bool> _upperBoundAlert = [
-    true,
-    false,
-  ];
-  List<bool> _lowerBoundAlert = [
-    true,
-    false,
-  ];
-  var _upperboundCtrl = TextEditingController();
-  var _lowerboundCtrl = TextEditingController();
-
-  @override
-  void dispose() {
-    _upperboundCtrl.dispose();
-    _lowerboundCtrl.dispose();
-    super.dispose();
-  }
-
+  List<bool> _upperBoundAlert = [true, false,];
+  List<bool> _lowerBoundAlert = [true, false,];
   @override
   Widget build(BuildContext context) {
     return DecoratedContainer(Column(
       children: [
-        SizedBox(
-          height: 10,
-        ),
+        SizedBox(height: 10,),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            Text("TEMPERATURE"),
-            Text(
-              "30 ℃ (now)",
-            ),
+            Text("Humidity"),
+            Text("70 % (now)",),
           ],
         ),
-        Divider(
-          thickness: 1,
-        ),
+        Divider(thickness: 1,),
         SfCartesianChart(
             // Initialize category axis
             primaryXAxis: CategoryAxis(), // have to use this, dont know why
             primaryYAxis: NumericAxis(
               edgeLabelPlacement: EdgeLabelPlacement.shift,
-              // title: AxisTitle(text: "Temperature (℃)", alignment: ChartAlignment.center),
             ),
-            title: ChartTitle(text: "Temperature (℃)"),
+            title: ChartTitle(text: "Humidity (%)"),
             series: <ColumnSeries<TestData, String>>[
               ColumnSeries<TestData, String>(
                 // Bind data source
                 dataSource: <TestData>[
-                  TestData('Mon', 35),
-                  TestData('Tue', 28),
-                  TestData('Wed', 34),
-                  TestData('Thu', 32),
-                  TestData('Fri', 38),
-                  TestData('Sat', 31),
-                  TestData('Sun', 22),
+                  TestData('Mon', 60),
+                  TestData('Tue', 60),
+                  TestData('Wed', 60),
+                  TestData('Thu', 60),
+                  TestData('Fri', 60),
+                  TestData('Sat', 60),
+                  TestData('Sun', 61),
                 ],
                 xValueMapper: (TestData sales, _) => sales.name,
                 yValueMapper: (TestData sales, _) => sales.value,
@@ -81,8 +58,7 @@ class _TemperatureControlState extends State<TemperatureControl> {
             Text("Week"),
           ],
           isSelected: _hourDayWeekOptions,
-          onPressed: (i) {
-            // TODO change grahp
+          onPressed: (i) { // TODO change grahp
             setState(() {
               for (int j = 0; j < 3; j++) {
                 if (j == i)
@@ -93,93 +69,51 @@ class _TemperatureControlState extends State<TemperatureControl> {
             });
           },
         ),
-        SizedBox(
-          height: 10,
-        ),
-        Divider(
-          thickness: 1,
-        ),
-        SizedBox(
-          height: 10,
-        ),
+        SizedBox(height: 10,),
+        Divider(thickness: 1,),
+        SizedBox(height: 10,),
         Text("Alert"),
-        SizedBox(
-          height: 10,
-        ),
+        SizedBox(height: 10,),
         Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             Text("Above:"),
-            Container(
-              width: 200,
-              child: TextField(
-                decoration: InputDecoration(
-                  labelText: "Upper bound",
-                ),
-                controller: _upperboundCtrl,
-              ),
-            ),
+            Text("TODO number picker"),
             ToggleButtons(
               children: [
                 Icon(Icons.notifications_active_outlined),
                 Icon(Icons.notifications_off_outlined),
-              ],
+              ], 
               isSelected: _upperBoundAlert,
               onPressed: (i) {
                 setState(() {
-                  if (i == 0)
-                    _upperBoundAlert = [true, false];
-                  else
-                    _upperBoundAlert = [false, true];
+                  if(i == 0) _upperBoundAlert = [true, false];
+                  else _upperBoundAlert = [false, true];
                 });
               },
             ),
           ],
         ),
-        SizedBox(
-          height: 10,
-        ),
+        SizedBox(height: 10,),
         Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             Text("Below:"),
-            Container(
-              width: 200,
-              child: TextField(
-                decoration: InputDecoration(
-                  labelText: "Lower bound",
-                ),
-                controller: _lowerboundCtrl,
-              ),
-            ),
+            Text("TODO number picker"),
             ToggleButtons(
               children: [
                 Icon(Icons.notifications_active_outlined),
                 Icon(Icons.notifications_off_outlined),
-              ],
+              ], 
               isSelected: _lowerBoundAlert,
               onPressed: (i) {
                 setState(() {
-                  if (i == 0)
-                    _lowerBoundAlert = [true, false];
-                  else
-                    _lowerBoundAlert = [false, true];
+                  if(i == 0) _lowerBoundAlert = [true, false];
+                  else _lowerBoundAlert = [false, true];
                 });
               },
             ),
           ],
         ),
-        Divider(
-          thickness: 1,
-          height: 40,
-        ),
-        ElevatedButton(
-          child: Text("Update setting"),
-          onPressed: () {},
-        ),
-        SizedBox(
-          height: 10,
-        ),
+        SizedBox(height: 10,),
       ],
     ));
   }

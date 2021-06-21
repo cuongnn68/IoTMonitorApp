@@ -21,7 +21,7 @@ class FolderDetail extends StatefulWidget {
   // TODO: get info of folder from server
   // TODO: get image from server
 
-  FolderDetail({Key key, this.folderName}) : super(key: key);
+  FolderDetail({Key key,  this.folderName}) : super(key: key);
 
   @override
   State<StatefulWidget> createState() => _FolderDetailState();
@@ -39,7 +39,7 @@ class _FolderDetailState extends State<FolderDetail> {
         future: _getImageList(),
         builder: (context, snapshot) {
           if (snapshot.hasData) {
-            List<String> listImage = snapshot.data;
+            List<String> listImage = snapshot.data as List<String>;
             var listImageUrl = (snapshot.data as List<String>)
                 .map((e) => Uri.https(global.url,
                         "/images-api/folder/${this.widget.folderName}/image/$e")

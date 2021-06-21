@@ -38,7 +38,7 @@ class _LoginPageState extends State<LoginPage> {
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                Text("Big text hear"),
+                Text("Đăng nhập"),
                 TextField(
                   decoration: InputDecoration(
                     labelText: "Username",
@@ -89,8 +89,8 @@ class _LoginPageState extends State<LoginPage> {
                                   SnackBar(
                                       content: Text(jsonRes["userToken"])));
                               // TODO
-                              myStorage.setToken(jsonRes["userToken"]);
-                              myStorage.setUsername(usernameCtrl.text);
+                              myStorage?.setToken(jsonRes["userToken"]);
+                              myStorage?.setUsername(usernameCtrl.text);
                               Navigator.of(context).pushAndRemoveUntil(
                                 MaterialPageRoute<void>(builder: (_) => Home()),
                                 (route) => false);

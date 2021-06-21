@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:iot_app/globals.dart' as global;
 import 'package:http/http.dart' as http;
 import 'package:flutter/cupertino.dart';
@@ -16,6 +15,16 @@ class _UpdateUserInfoState extends State<UpdateUserInfo> {
   TextEditingController fullNameCtrl = TextEditingController();
   TextEditingController phoneCtrl = TextEditingController();
   TextEditingController emailCtrl = TextEditingController();
+
+  @override
+  void dispose() {
+    usernameCtrl.dispose();
+    fullNameCtrl.dispose();
+    phoneCtrl.dispose();
+    emailCtrl.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     usernameCtrl.text = "test username";

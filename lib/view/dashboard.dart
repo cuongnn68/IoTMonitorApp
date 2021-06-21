@@ -33,13 +33,12 @@ class _DashBoardState extends State<DashBoard> {
         .withUrl(Uri.https(url, "/realtime").toString())
         .withAutomaticReconnect()
         .build();
-    await _connection.start();
-    _connection
-      ..on(
-          "test",
-          (arguments) => print(arguments.toString() +
-              " (recived on mobile: ${DateTime.now().toString()}) "))
-      ..on("updateState", updateState);
+    await _connection?.start();
+    _connection..on(
+        "test",
+        (arguments) => print(arguments.toString() +
+            " (recived on mobile: ${DateTime.now().toString()}) "));
+    _connection?.on("updateState", updateState);
     _connection
       ..send(methodName: "getUpdate", args: [])
       ..send(
@@ -78,11 +77,14 @@ class _DashBoardState extends State<DashBoard> {
           direction: Axis.horizontal,
           alignment: WrapAlignment.center,
           children: [
-            if(_boolState != null && _boolState.isNotEmpty) 
-              for(MapEntry<String, bool> state in _boolState.entries)
-                DataSwitch(state.key, state.value, (bool newValue) =>
-                  _connection.send(methodName: "ChangeStateBool", args: [state.key, newValue])
-                )
+            if (_boolState != null && _boolState.isNotEmpty)
+              for (MapEntry<String, bool> state in _boolState.entries)
+                DataSwitch(
+                    state.key,
+                    state.value,
+                    (bool newValue) => _connection.send(
+                        methodName: "ChangeStateBool",
+                        args: [state.key, newValue]))
           ],
         ),
       ],
