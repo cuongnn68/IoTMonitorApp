@@ -10,7 +10,7 @@ class HumidityControl extends StatefulWidget {
 }
 
 class _HumidityControlState extends State<HumidityControl> {
-  List<bool> _hourDayWeekOptions = [false, true, false];
+  List<bool> _hourDayWeekOptions = [false, true];
   List<bool> _upperBoundAlert = [true, false,];
   List<bool> _lowerBoundAlert = [true, false,];
   @override
@@ -38,10 +38,10 @@ class _HumidityControlState extends State<HumidityControl> {
                 // Bind data source
                 dataSource: <TestData>[
                   TestData('Mon', 60),
-                  TestData('Tue', 60),
+                  TestData('Tue', null),
                   TestData('Wed', 60),
                   TestData('Thu', 60),
-                  TestData('Fri', 60),
+                  TestData('Fri', null),
                   TestData('Sat', 60),
                   TestData('Sun', 61),
                 ],
@@ -53,14 +53,13 @@ class _HumidityControlState extends State<HumidityControl> {
             ]),
         ToggleButtons(
           children: [
-            Text("Hour"),
             Text("Day"),
             Text("Week"),
           ],
           isSelected: _hourDayWeekOptions,
           onPressed: (i) { // TODO change grahp
             setState(() {
-              for (int j = 0; j < 3; j++) {
+              for (int j = 0; j < 2; j++) {
                 if (j == i)
                   _hourDayWeekOptions[j] = true;
                 else
@@ -72,9 +71,10 @@ class _HumidityControlState extends State<HumidityControl> {
         SizedBox(height: 10,),
         Divider(thickness: 1,),
         SizedBox(height: 10,),
-        Text("Alert"),
+        Text("Setting"),
         SizedBox(height: 10,),
         Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             Text("Above:"),
             Text("TODO number picker"),
@@ -95,6 +95,7 @@ class _HumidityControlState extends State<HumidityControl> {
         ),
         SizedBox(height: 10,),
         Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             Text("Below:"),
             Text("TODO number picker"),

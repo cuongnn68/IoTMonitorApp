@@ -10,14 +10,10 @@ class TemperatureControl extends StatefulWidget {
 }
 
 class _TemperatureControlState extends State<TemperatureControl> {
-  List<bool> _hourDayWeekOptions = [false, true, false];
-  List<bool> _upperBoundAlert = [
-    true,
+  List<bool> _hourDayWeekOptions = [false, true];
+  List<bool> _autoPump = [
     false,
-  ];
-  List<bool> _lowerBoundAlert = [
     true,
-    false,
   ];
   var _upperboundCtrl = TextEditingController();
   var _lowerboundCtrl = TextEditingController();
@@ -31,6 +27,9 @@ class _TemperatureControlState extends State<TemperatureControl> {
 
   @override
   Widget build(BuildContext context) {
+    _upperboundCtrl.text = "0";
+    _lowerboundCtrl.text = "0";
+
     return DecoratedContainer(Column(
       children: [
         SizedBox(
@@ -76,7 +75,6 @@ class _TemperatureControlState extends State<TemperatureControl> {
             ]),
         ToggleButtons(
           children: [
-            Text("Hour"),
             Text("Day"),
             Text("Week"),
           ],
@@ -84,7 +82,7 @@ class _TemperatureControlState extends State<TemperatureControl> {
           onPressed: (i) {
             // TODO change grahp
             setState(() {
-              for (int j = 0; j < 3; j++) {
+              for (int j = 0; j < 2; j++) {
                 if (j == i)
                   _hourDayWeekOptions[j] = true;
                 else
@@ -102,7 +100,7 @@ class _TemperatureControlState extends State<TemperatureControl> {
         SizedBox(
           height: 10,
         ),
-        Text("Alert"),
+        Text("Setting"),
         SizedBox(
           height: 10,
         ),
@@ -118,21 +116,6 @@ class _TemperatureControlState extends State<TemperatureControl> {
                 ),
                 controller: _upperboundCtrl,
               ),
-            ),
-            ToggleButtons(
-              children: [
-                Icon(Icons.notifications_active_outlined),
-                Icon(Icons.notifications_off_outlined),
-              ],
-              isSelected: _upperBoundAlert,
-              onPressed: (i) {
-                setState(() {
-                  if (i == 0)
-                    _upperBoundAlert = [true, false];
-                  else
-                    _upperBoundAlert = [false, true];
-                });
-              },
             ),
           ],
         ),
@@ -152,22 +135,37 @@ class _TemperatureControlState extends State<TemperatureControl> {
                 controller: _lowerboundCtrl,
               ),
             ),
-            ToggleButtons(
+          ],
+        ),
+        SizedBox(
+          height: 20,
+        ),
+        ToggleButtons(
+          children: [
+            Row(
               children: [
-                Icon(Icons.notifications_active_outlined),
-                Icon(Icons.notifications_off_outlined),
+                SizedBox(width: 20),
+                Text("AUTO ON"),
+                SizedBox(width: 20),
               ],
-              isSelected: _lowerBoundAlert,
-              onPressed: (i) {
-                setState(() {
-                  if (i == 0)
-                    _lowerBoundAlert = [true, false];
-                  else
-                    _lowerBoundAlert = [false, true];
-                });
-              },
+            ),
+            Row(
+              children: [
+                SizedBox(width: 20),
+                Text("AUTO OFF"),
+                SizedBox(width: 20),
+              ],
             ),
           ],
+          isSelected: _autoPump,
+          onPressed: (i) {
+            setState(() {
+              if (i == 0)
+                _autoPump = [true, false];
+              else
+                _autoPump = [false, true];
+            });
+          },
         ),
         Divider(
           thickness: 1,
@@ -175,7 +173,23 @@ class _TemperatureControlState extends State<TemperatureControl> {
         ),
         ElevatedButton(
           child: Text("Update setting"),
-          onPressed: () {},
+          onPressed: () {
+            if (_upperboundCtrl.text.isEmpty || _lowerboundCtrl.text.isEmpty) {
+              ScaffoldMessenger.of(context)
+                  .showSnackBar(SnackBar(content: Text("Điền dữ liệu")));
+              return;
+            }
+            if (int.tryParse(_upperboundCtrl.text) == null) {
+              ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                  content: Text("${_upperboundCtrl.text} ko phai la so")));
+              return;
+            }
+            if (int.tryParse(_lowerboundCtrl.text) == null) {
+              ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                  content: Text("${_lowerboundCtrl.text} ko phai la so")));
+              return;
+            }
+          },
         ),
         SizedBox(
           height: 10,
