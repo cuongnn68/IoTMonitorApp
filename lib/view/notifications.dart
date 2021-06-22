@@ -1,5 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:iot_app/model/notification_model.dart';
+import 'package:iot_app/my_wiget/container_wrapper.dart';
+import 'package:iot_app/globals.dart' as global;
+import 'package:http/http.dart' as http;
+import 'package:iot_app/model/storage.dart';
+import 'dart:convert';
 
 class Notifications extends StatefulWidget {
   @override
@@ -7,44 +13,58 @@ class Notifications extends StatefulWidget {
 }
 
 class _NotificationsState extends State<Notifications> {
-  var tests = [
-    "Test notification 1 Test notification 1 Test notification 1 Test notification 1 Test notification 1 Test notification 1 Test notification 1 ",
-    "Test notification 22",
-    "Test notification 3",
-    "Test notification 14",
-    "Test notification 5",
+  var notifications = [
+    NotificationModel("content", "time"),
+    NotificationModel("content", "time"),
+    NotificationModel("content", "time"),
+    NotificationModel("content", "time"),
+    NotificationModel("content", "time"),
   ];
+
+  Future<List<NotificationModel>> getNotification() async {
+    var myStorage = await Storage.getInstance();
+    var res = await http.get(
+      Uri.https(global.url, "api/user/${myStorage.getUsername()}/notification"),
+      headers: {
+        "Accept": "application/json",
+        "Content-Type": "application/json",
+        "Authorization": "bearer ${myStorage.getToken()}",
+      },
+    );
+    if (!global.successStatus(res.statusCode)) {
+      ScaffoldMessenger.of(context)
+          .showSnackBar(SnackBar(content: Text("Error")));
+      return null;
+    } else {
+      var notiListJson =
+          Map<String, List<dynamic>>.from(jsonDecode(res.body))["notification"];
+      return notiListJson.map((e) => NotificationModel.fromJson(e)).toList();
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
-    return ListView(
-      // padding: EdgeInsets.all(15),
-      children: tests
-          .map((e) => Container(
-                child: ListTile(
-                  selected: false,
-                  // contentPadding: EdgeInsets.all(8),
-                  // minVerticalPadding: 8,
-                  title: Text(e),
-                  leading: Icon(
-                    Icons.notifications_active,
-                  ),
-                ),
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  boxShadow: [
-                    BoxShadow( // TODO fix this shit
-                      color: Colors.grey[300].withOpacity(1),
-                      spreadRadius: 1,
-                      blurRadius: 3,
-                      offset: Offset(3, 4), // changes position of shadow
-                    ),],
-                  border: Border.all(width: 0.3),
-                  borderRadius: BorderRadius.all(Radius.circular(7)),
-                ),
-                padding: EdgeInsets.all(5),
-                margin: EdgeInsets.fromLTRB(15, 15, 15, 0),
-              ))
-          .toList(),
+    return FutureBuilder(
+      future: getNotification(),
+      builder: (_, snapshot) {
+        if (snapshot.hasData) {
+          notifications = snapshot.data;
+          return ListView(
+            // padding: EdgeInsets.all(15),
+            children: notifications
+                .map((noti) => DecoratedContainer(ListTile(
+                      selected: false,
+                      title: Text(noti.content),
+                      subtitle: Text(noti.time),
+                      leading: Icon(Icons.notifications_active),
+                    )))
+                .toList(),
+          );
+        }
+        return Center(
+          child: CircularProgressIndicator(),
+        );
+      }
     );
   }
 }

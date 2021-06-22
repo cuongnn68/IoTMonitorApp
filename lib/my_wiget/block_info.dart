@@ -36,8 +36,11 @@ class BlockInfo extends StatelessWidget {
           Divider(
             thickness: 1,
           ),
-          Wrap(
-            alignment: WrapAlignment.spaceEvenly,
+          Align(
+            alignment: Alignment.topLeft,
+            child: Wrap(
+            alignment: WrapAlignment.start,
+            runAlignment: WrapAlignment.start,
             children: [
               if(this.hasLight) InsideDecoratedContainer(
                 Text("light: " + (this.lightState ? "ON" : "OFF")),
@@ -53,6 +56,8 @@ class BlockInfo extends StatelessWidget {
               // ),
             ],
           ),
+          ),
+          
           SizedBox(
             height: 12,
           )

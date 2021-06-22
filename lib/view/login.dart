@@ -87,7 +87,8 @@ class _LoginPageState extends State<LoginPage> {
                             if (global.successStatus(res.statusCode)) {
                               ScaffoldMessenger.of(context).showSnackBar(
                                   SnackBar(
-                                      content: Text(jsonRes["userToken"])));
+                                      // content: Text(jsonRes["userToken"])));
+                                      content: Text("Logined !")));
                               // TODO
                               myStorage?.setToken(jsonRes["userToken"]);
                               myStorage?.setUsername(usernameCtrl.text);

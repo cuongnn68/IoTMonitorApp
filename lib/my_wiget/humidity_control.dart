@@ -17,7 +17,7 @@ class HumidityControl extends StatefulWidget {
   _HumidityControlState createState() => _HumidityControlState();
 }
 
-class _HumidityControlState extends State<HumidityControl> {
+class _HumidityControlState extends State<HumidityControl> with AutomaticKeepAliveClientMixin{
   int _humiValue;
   List<bool> _hourDayWeekOptions = [false, true];
   List<bool> _autoPump = [
@@ -39,6 +39,10 @@ class _HumidityControlState extends State<HumidityControl> {
 
   HumiModuleModel humiModule;
   Future<HumiModuleModel> futureModule;
+
+  @override
+  // TODO: implement wantKeepAlive
+  bool get wantKeepAlive => true;
 
   Future<HumiModuleModel> getHumiModule() async {
     var myStorage = await Storage.getInstance();

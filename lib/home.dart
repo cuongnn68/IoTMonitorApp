@@ -15,15 +15,15 @@ class _HomeState extends State<Home> {
   var _activedIndex = 0;
   var _wigets = <Widget>[
     DashBoard2(),
-    ImageView(),
+    // ImageView(),
     // Text("alert view"),
     Notifications(),
     Info(),
   ];
   var _titles = <Text>[
-    Text("Bang dieu khien"),
-    Text("Photo"),
-    Text("Canh bao"),
+    Text("Bảng điều khiển"),
+    // Text("Photo"),
+    Text("Thống báo"),
     Text("Thong tin"),
   ];
 
@@ -40,13 +40,13 @@ class _HomeState extends State<Home> {
             icon: Icon(Icons.settings_remote),
             label: "Dashboard",
           ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.photo),
-            label: "Photo",
-          ),
+          // BottomNavigationBarItem(
+          //   icon: Icon(Icons.photo),
+          //   label: "Photo",
+          // ),
           BottomNavigationBarItem(
             icon: Icon(Icons.notifications), 
-            label: "Alert",
+            label: "Notification",
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.people_alt),

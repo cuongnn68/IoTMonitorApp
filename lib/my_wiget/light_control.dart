@@ -17,7 +17,7 @@ class LightControl extends StatefulWidget {
   State<StatefulWidget> createState() => _LightControlState();
 }
 
-class _LightControlState extends State<LightControl> {
+class _LightControlState extends State<LightControl> with AutomaticKeepAliveClientMixin{
   // TODO get data from server
   List<bool> _lightSate = [false, true];
   TimeOfDay _lightOnTime = TimeOfDay(hour: 18, minute: 0);
@@ -41,6 +41,11 @@ class _LightControlState extends State<LightControl> {
     return LightModuleModel.fromJson(json);
     // return jsonDevice.map((value) => DeviceDataModel.fromJson(value)).toList();
   }
+
+  
+  @override
+  // TODO: implement wantKeepAlive
+  bool get wantKeepAlive => true;
 
   @override
   void initState() {
@@ -110,17 +115,19 @@ class _LightControlState extends State<LightControl> {
                               body: jsonEncode({
                                 "state": (i == 0 ? true : false),
                               }));
-                          if (!global.successStatus(res.statusCode)) {
+                          if (global.successStatus(res.statusCode)) {
+                            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                                content: Text("Đã gửi lệnh điều khiển")));
+                          } else {
                             ScaffoldMessenger.of(context)
                                 .showSnackBar(SnackBar(content: Text("Error")));
                           }
-                          setState(() {
-                            if (i == 0) {
-                              _lightSate = [true, false];
-                            } else {
-                              _lightSate = [false, true];
-                            }
-                          });
+                          if (i == 0) {
+                            _lightSate = [true, false];
+                          } else {
+                            _lightSate = [false, true];
+                          }
+                          setState(() {});
                         },
                       ),
                     ],
@@ -233,12 +240,14 @@ class _LightControlState extends State<LightControl> {
                   ),
                   ElevatedButton(
                     onPressed: () async {
+                      var myStorage = await Storage.getInstance();
                       var res = await http.put(
                           Uri.https(global.url,
                               "api/device/${this.widget.deviceId}/light"),
                           headers: {
                             "Accept": "application/json",
                             "Content-Type": "application/json",
+                            "Authorization": "bearer ${myStorage.getToken()}",
                           },
                           body: jsonEncode({
                             "TimeOn": DateFormat("HH:mm").format(DateTime(
@@ -297,4 +306,5 @@ class _LightControlState extends State<LightControl> {
       });
     });
   }
+
 }

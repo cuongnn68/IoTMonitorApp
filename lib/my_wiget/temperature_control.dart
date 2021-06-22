@@ -17,7 +17,7 @@ class TemperatureControl extends StatefulWidget {
   _TemperatureControlState createState() => _TemperatureControlState();
 }
 
-class _TemperatureControlState extends State<TemperatureControl> {
+class _TemperatureControlState extends State<TemperatureControl> with AutomaticKeepAliveClientMixin{
   int _tempValue = 33;
   List<bool> _hourDayWeekOptions = [false, true];
   List<bool> _upperBoundAlert = [
@@ -44,6 +44,10 @@ class _TemperatureControlState extends State<TemperatureControl> {
     DataModel('Sat', 33),
     DataModel('Sun', 34),
   ];
+
+  @override
+  // TODO: implement wantKeepAlive
+  bool get wantKeepAlive => true;
 
   @override
   void dispose() {
