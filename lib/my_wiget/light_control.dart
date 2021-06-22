@@ -97,12 +97,15 @@ class _LightControlState extends State<LightControl> {
                         isSelected: _lightSate,
                         onPressed: (i) async {
                           // TODO update to server
+                          var myStorage = await Storage.getInstance();
                           var res = await http.post(
                               Uri.https(global.url,
                                   "api/device/${this.widget.deviceId}/light"),
                               headers: {
                                 "Accept": "application/json",
                                 "Content-Type": "application/json",
+                                "Authorization":
+                                    "bearer ${myStorage.getToken()}",
                               },
                               body: jsonEncode({
                                 "state": (i == 0 ? true : false),

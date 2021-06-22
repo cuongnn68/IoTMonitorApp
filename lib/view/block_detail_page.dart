@@ -25,8 +25,8 @@ class _BlockDetailPageState extends State<BlockDetailPage> {
       body: ListView(
         children: [
           if(this.widget.hasLight) LightControl(this.widget.deviceId),
-          if(this.widget.hasTemp) TemperatureControl(),
-          if(this.widget.hasHumi) HumidityControl(),
+          if(this.widget.hasTemp) TemperatureControl(widget.deviceId),
+          if(this.widget.hasHumi) HumidityControl(widget.deviceId),
           SizedBox(
             height: 12,
           ),
